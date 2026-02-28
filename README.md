@@ -14,7 +14,7 @@ This project simulates a direct-mapped cache memory with the following features:
 
 | File | Description |
 |------|-------------|
-| `Main.cpp` | Main cache simulator with `KesMem` class |
+| `Main.cpp` | Main cache simulator with `CacheMem` class |
 | `Generator.cpp` | Generates random test data for hex.txt |
 | `hex.txt` | Simulated disk storage (format: `aaaa: dd`) |
 
@@ -49,36 +49,40 @@ The program presents a menu:
 
 ### Example Session
 ```
-1. Citanje iz Kes memorije
-2. Izlaz
+1. Read from Cache
+2. Exit
 1
-Unesite adresu sa koje hocete da citate
+Enter address to read from
 00AF
 MISS
-Zamena uspela!
-Citanje sa diska zavrseno.
-Podatak koji se nalazi na adresi 00AF je XX
-Sadrzaj tag dela kes memorije
-v   tag  startAdress
+Searching for space to replace...
+Replacement successful!
+Reading from disk...
+Disk read complete.
+Data at address 00AF is XX
+Cache tag contents:
+v   tag  startAddress
 1    00A      0
 ```
 
-## Class: KesMem
+## Class: CacheMem
 
 | Member | Type | Description |
 |--------|------|-------------|
-| `s` | string[] | Tag array |
-| `v` | bool[] | Valid bit array |
-| `w` | int[] | Starting address in data array |
+| `tags` | string[] | Tag array |
+| `valid` | bool[] | Valid bit array |
+| `startAddress` | int[] | Starting address in data array |
 | `data` | string[] | Cache data storage |
 | `count` | int | Number of cache lines |
 
-### Key Methods
-- `vecPostoji()` - Check if address exists in cache (HIT)
-- `staviUkes()` - Insert new address into cache
-- `puniMemoriju()` - Load data from "disk"
-- `citanjeIzKesa()` - Read data from cache
-- `zamena()` - FIFO replacement when cache is full
+### Methods
+- `existsInCache()` - Check if address exists in cache (HIT)
+- `insertIntoCache()` - Insert new address into cache
+- `loadFromDisk()` - Load data from "disk"
+- `readFromCache()` - Read data from cache
+- `replace()` - FIFO replacement when cache is full
+- `print()` - Print cache contents
+- `printData()` - Print all cache data
 
 ## License
 
